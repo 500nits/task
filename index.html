@@ -40,8 +40,14 @@
     }
 
     main {
-      width: min(680px, calc(100% - 40px));
+      width: min(960px, calc(100% - 40px));
       margin: 64px auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
     }
 
     .icon {
@@ -49,6 +55,12 @@
       height: 84px;
       border-radius: 20px;
       box-shadow: 0 14px 34px rgba(40, 32, 22, .14);
+    }
+
+    .app-name {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -.025em;
     }
 
     .eyebrow {
@@ -94,6 +106,22 @@
       font-size: 15px;
     }
 
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 36px 0;
+    }
+
+    .screenshots img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(40, 32, 22, .09);
+    }
+
     footer {
       display: flex;
       gap: 18px;
@@ -106,6 +134,12 @@
     a {
       color: inherit;
       text-underline-offset: 4px;
+    }
+
+    @media (max-width: 680px) {
+      .screenshots {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (prefers-color-scheme: dark) {
@@ -128,19 +162,25 @@
 </head>
 <body>
   <main>
-    <img class="icon" src="/icon.png" width="84" height="84" alt="">
+    <header class="brand">
+      <img class="icon" src="/icon.png" width="84" height="84" alt="">
+      <a class="app-name" href="https://apps.apple.com/app/id6793942588">Task for Spaces</a>
+    </header>
     <p class="eyebrow">A tiny macOS menu-bar app</p>
     <h1>Know what every Space is for.</h1>
     <p class="intro">Task gives each macOS Space a meaningful name, then shows it when you switch desktops, open Mission Control, wake your Mac, or click its menu-bar icon.</p>
+    <div class="screenshots">
+      <img src="/screenshots/desktop-and-configuration.jpg" width="1440" height="900" alt="Task showing the current Space name beside its plain-text configuration">
+      <img src="/screenshots/mission-control.jpg" width="1440" height="900" alt="Task showing a named Space in macOS Mission Control">
+    </div>
     <div class="example" aria-label="Example Task configuration">1 = DoodleTag · replay investigation
 2 = Botify · provider work
 3 = Website · indexing
 4 = Admin</div>
     <p class="note">Plain-text configuration. Native light and dark mode. No accounts, analytics, cloud storage, or advertising.</p>
     <footer>
-      <span>© 500nits</span>
+      <a href="https://500nits.com">500nits</a>
       <a href="/privacy/">Privacy</a>
-      <a href="https://github.com/edoardoc/Task">Source</a>
     </footer>
   </main>
 </body>
