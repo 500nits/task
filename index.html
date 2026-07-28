@@ -112,7 +112,7 @@
     }
 
     .example {
-      margin: 32px 0;
+      margin: 12px 0 16px;
       padding: 22px 24px;
       overflow-x: auto;
       border: 1px solid var(--line);
@@ -131,7 +131,7 @@
 
     .features {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
       margin: 36px 0;
     }
@@ -153,6 +153,12 @@
       margin: 0;
       color: var(--muted);
       font-size: 15px;
+    }
+
+    .configuration-heading {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -.02em;
     }
 
     .screenshots {
@@ -227,38 +233,35 @@
     </div>
     <p class="eyebrow">Version 1.0.6 · A tiny macOS menu-bar app</p>
     <h1>Know what every Space is for.</h1>
-    <p class="intro">Task gives each macOS Space a meaningful name, then shows it when you switch desktops, open Mission Control, or click its menu-bar icon. The icon itself now shows your current numbered Desktop at a glance.</p>
+    <p class="intro">Task gives each macOS Space a meaningful name, then shows it when you switch desktops, open Mission Control, or click its menu-bar icon. The menu-bar icon shows your current numbered Desktop at a glance.</p>
     <div class="screenshots">
       <img src="/screenshots/desktop-and-configuration.jpg" width="1440" height="900" alt="Task showing the current Space name beside its plain-text configuration">
       <img src="/screenshots/mission-control.jpg" width="1440" height="900" alt="Task showing a named Space in macOS Mission Control">
     </div>
-    <section class="features" aria-label="What's new in Task 1.0.6">
+    <section class="features" aria-label="Task features">
       <article class="feature">
         <h2>Your Desktop, at a glance</h2>
-        <p>The menu-bar tag shows the current Desktop number. Fullscreen and Split View Spaces keep the tag unnumbered.</p>
+        <p>The menu-bar tag shows the current Desktop number.</p>
       </article>
       <article class="feature">
         <h2>Rename in place</h2>
-        <p>Right-click Task and edit the current Desktop name. Task also preserves names when you reorder Desktops.</p>
+        <p>Right-click Task to edit the current Desktop name.</p>
       </article>
       <article class="feature">
-        <h2>Clear fullscreen context</h2>
-        <p>Fullscreen shows the app name. Split View shows both visible apps from left to right.</p>
-      </article>
-      <article class="feature">
-        <h2>Your timing</h2>
-        <p>Set the splash from 0.1 to 5.0 seconds. Task saves it only when you release the slider.</p>
+        <h2>Set the splash duration</h2>
+        <p>Choose how long the Space-name splash stays visible, from 0.1 to 5.0 seconds.</p>
       </article>
     </section>
-    <div class="example" aria-label="Example Task configuration">splash_duration = 1.5
+    <h2 class="configuration-heading">Configuration file (spaces.txt)</h2>
+    <div class="example" aria-label="Example spaces.txt configuration">splash_duration = 1.5
 
 1 = Focus work
 2 = Email and messages
 3 = Research and reference
 4 = Planning and admin</div>
-    <p class="note">Task otherwise only reads your existing plain-text configuration. Native light and dark mode. No accounts, analytics, cloud storage, or advertising.</p>
+    <p class="note">Space names and splash duration live in this local file. Task follows your Mac's light or dark appearance.</p>
     <footer>
-      <a href="https://500nits.com">500nits</a>
+      <a href="https://500nits.com/">500nits</a>
       <a href="/support/">Support</a>
       <a href="/privacy/">Privacy</a>
     </footer>
