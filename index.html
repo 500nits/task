@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Task — Name your macOS Spaces</title>
-  <meta name="description" content="Task gives every macOS Space a meaningful name and shows it when you switch desktops or open Mission Control.">
+  <title>Task: Name your macOS Spaces</title>
+  <meta name="description" content="See your current numbered Desktop in the menu bar, name macOS Spaces in place, and choose how long their splash stays visible.">
   <link rel="canonical" href="https://task.500nits.com/">
-  <link rel="icon" href="/icon.png">
-  <meta property="og:title" content="Task — Name your macOS Spaces">
-  <meta property="og:description" content="Keep the purpose of every desktop visible while you work.">
+  <link rel="icon" sizes="32x32" href="/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content="Task: Name your macOS Spaces">
+  <meta property="og:description" content="See the current Desktop number at a glance, name Spaces from the menu bar, and keep their purpose visible while you work.">
   <meta property="og:url" content="https://task.500nits.com/">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://task.500nits.com/icon.png">
@@ -40,6 +41,7 @@
     }
 
     main {
+      position: relative;
       width: min(960px, calc(100% - 40px));
       margin: 64px auto;
     }
@@ -61,6 +63,27 @@
       font-size: 22px;
       font-weight: 700;
       letter-spacing: -.025em;
+    }
+
+    .menu-bar-preview {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(480px, 50%);
+      aspect-ratio: 10 / 1;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #eee;
+      box-shadow: 0 14px 34px rgba(40, 32, 22, .12);
+    }
+
+    .menu-bar-preview img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 38.5%;
     }
 
     .eyebrow {
@@ -106,6 +129,32 @@
       font-size: 15px;
     }
 
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 36px 0;
+    }
+
+    .feature {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+
+    .feature h2 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: -.02em;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
     .screenshots {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -137,7 +186,14 @@
     }
 
     @media (max-width: 680px) {
-      .screenshots {
+      .menu-bar-preview {
+        position: relative;
+        width: 100%;
+        margin-top: 24px;
+      }
+
+      .screenshots,
+      .features {
         grid-template-columns: 1fr;
       }
     }
@@ -166,18 +222,41 @@
       <img class="icon" src="/icon.png" width="84" height="84" alt="">
       <a class="app-name" href="https://apps.apple.com/app/id6793942588">Task for Spaces</a>
     </header>
-    <p class="eyebrow">A tiny macOS menu-bar app</p>
+    <div class="menu-bar-preview">
+      <img src="/screenshots/task-menu-bar.png" width="2172" height="724" alt="macOS menu bar showing Task on Desktop 9">
+    </div>
+    <p class="eyebrow">Version 1.0.6 · A tiny macOS menu-bar app</p>
     <h1>Know what every Space is for.</h1>
-    <p class="intro">Task gives each macOS Space a meaningful name, then shows it when you switch desktops, open Mission Control, wake your Mac, or click its menu-bar icon.</p>
+    <p class="intro">Task gives each macOS Space a meaningful name, then shows it when you switch desktops, open Mission Control, or click its menu-bar icon. The icon itself now shows your current numbered Desktop at a glance.</p>
     <div class="screenshots">
       <img src="/screenshots/desktop-and-configuration.jpg" width="1440" height="900" alt="Task showing the current Space name beside its plain-text configuration">
       <img src="/screenshots/mission-control.jpg" width="1440" height="900" alt="Task showing a named Space in macOS Mission Control">
     </div>
-    <div class="example" aria-label="Example Task configuration">1 = DoodleTag · replay investigation
-2 = Botify · provider work
-3 = Website · indexing
-4 = Admin</div>
-    <p class="note">Plain-text configuration. Native light and dark mode. No accounts, analytics, cloud storage, or advertising.</p>
+    <section class="features" aria-label="What's new in Task 1.0.6">
+      <article class="feature">
+        <h2>Your Desktop, at a glance</h2>
+        <p>The menu-bar tag shows the current Desktop number. Fullscreen and Split View Spaces keep the tag unnumbered.</p>
+      </article>
+      <article class="feature">
+        <h2>Rename in place</h2>
+        <p>Right-click Task and edit the current Desktop name. Task also preserves names when you reorder Desktops.</p>
+      </article>
+      <article class="feature">
+        <h2>Clear fullscreen context</h2>
+        <p>Fullscreen shows the app name. Split View shows both visible apps from left to right.</p>
+      </article>
+      <article class="feature">
+        <h2>Your timing</h2>
+        <p>Set the splash from 0.1 to 5.0 seconds. Task saves it only when you release the slider.</p>
+      </article>
+    </section>
+    <div class="example" aria-label="Example Task configuration">splash_duration = 1.5
+
+1 = Focus work
+2 = Email and messages
+3 = Research and reference
+4 = Planning and admin</div>
+    <p class="note">Task otherwise only reads your existing plain-text configuration. Native light and dark mode. No accounts, analytics, cloud storage, or advertising.</p>
     <footer>
       <a href="https://500nits.com">500nits</a>
       <a href="/support/">Support</a>

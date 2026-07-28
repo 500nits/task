@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Support — Task for Spaces</title>
+  <title>Support: Task for Spaces</title>
   <meta name="description" content="Help, setup instructions, and support for Task for Spaces on macOS.">
   <link rel="canonical" href="https://task.500nits.com/support/">
-  <link rel="icon" href="/icon.png">
+  <link rel="icon" sizes="32x32" href="/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <style>
     :root {
       color-scheme: light dark;
@@ -111,6 +112,26 @@
       font: 14px/1.8 ui-monospace, "SFMono-Regular", Menlo, monospace;
     }
 
+    .setup-figure {
+      margin: 24px 0 4px;
+    }
+
+    .setup-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 16px 40px rgba(40, 32, 22, .08);
+    }
+
+    .setup-figure figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
     .contact {
       padding: 24px;
       border: 1px solid var(--line);
@@ -156,7 +177,7 @@
     </a>
 
     <h1>Support</h1>
-    <p class="intro">Task is a small macOS menu-bar app that lets you attach a meaningful description to each numbered Space, so you can see what every desktop is for at the moments when context matters.</p>
+    <p class="intro"><strong>Version 1.0.6.</strong> Task is a small macOS menu-bar app that lets you attach a meaningful description to each numbered Space, so you can see what every desktop is for at the moments when context matters.</p>
 
     <section>
       <h2>Getting started</h2>
@@ -166,17 +187,34 @@
         <li><strong>Automatically rearrange Spaces based on most recent use</strong></li>
       </ul>
       <p>Task stays in the menu bar. It does not appear in the Dock.</p>
+      <p>The tag-shaped menu-bar icon contains the current numbered Desktop. Fullscreen and Split View Spaces leave the tag unnumbered because macOS does not assign them a Desktop number.</p>
+      <figure class="setup-figure">
+        <img src="/screenshots/task_best_mission_control_configuration.png" width="1344" height="942" loading="lazy" alt="macOS Mission Control keyboard shortcuts configured for moving left and right and switching directly to Desktops 1 through 9">
+        <figcaption>A good keyboard configuration for Task: keep the shortcuts for moving left and right, and assign Control–1 through Control–9 to numbered Desktops. You can switch directly or browse sequentially while Task shows the name of the Space where you land.</figcaption>
+      </figure>
     </section>
 
     <section>
       <h2>Name your Spaces</h2>
-      <p>Right-click the Task menu-bar icon and choose <strong>Configuration…</strong>. Task opens a local plain-text file in your default text editor. Add one numbered description per line:</p>
-      <pre>1 = DoodleTag · replay investigation
-2 = Botify · provider work
-3 = Website · indexing
-4 = Admin</pre>
+      <p>Right-click the Task menu-bar icon. The text field at the top of the menu contains the current Desktop name. Edit it there and Task updates that Desktop’s entry immediately.</p>
+      <p>For bulk edits, choose <strong>Configuration…</strong>. Task opens the local plain-text file in your default text editor. Add one numbered description per line:</p>
+      <pre>splash_duration = 1.5
+
+1 = Focus work
+2 = Email and messages
+3 = Research and reference
+4 = Planning and admin</pre>
       <p>The file is stored locally at:</p>
       <p><code>~/Library/Containers/com.500nits.Task/Data/Library/Application Support/Task/spaces.txt</code></p>
+      <p>Task does not overwrite the file when it launches, changes Spaces, or shows a splash. It writes only when you edit the Desktop name, release the splash-duration slider, or complete a verified numbered-Desktop reorder in Mission Control.</p>
+      <p><code>spaces.txt</code> is an app-owned canonical file. When Task writes it, duplicate entries collapse to their last value and custom comments, unknown keys, and custom formatting are removed.</p>
+      <p>If you drag numbered Desktops into a new order in Mission Control, Task uses their stable identities to move each name to its new Desktop number automatically.</p>
+    </section>
+
+    <section>
+      <h2>Set the splash duration</h2>
+      <p>Right-click the Task icon and use the <strong>Splash duration</strong> slider. Choose any value from 0.1 to 5.0 seconds; the default is 1.5 seconds.</p>
+      <p>The value is saved immediately when you release the slider as <code>splash_duration</code> in <code>spaces.txt</code>. If that setting is missing or invalid, Task uses the 1.5-second default without rewriting the file.</p>
     </section>
 
     <section>
@@ -185,15 +223,19 @@
       <ul>
         <li>move to another Space;</li>
         <li>open Mission Control;</li>
-        <li>wake or unlock your Mac; or</li>
         <li>left-click the Task menu-bar icon.</li>
       </ul>
-      <p>If you use more than one display, Task shows the name on every connected display. Fullscreen Spaces are shown as <strong>FS · Fullscreen Space</strong>.</p>
+      <p>If you use more than one display, Task shows the name on every connected display. A fullscreen Space shows its visible app name, such as <strong>Safari</strong>. Split View shows both apps from left to right, such as <strong>Safari · Notes</strong>.</p>
     </section>
 
     <section>
       <h2>Menu-bar controls</h2>
-      <p>Right-click the Task icon to open its menu. From there you can edit the configuration, enable or disable <strong>Start at Login</strong>, read the About panel, or quit Task. Start at Login is always opt-in.</p>
+      <p>The small number inside Task’s tag shows the current numbered Desktop. Right-click the icon to rename that Desktop, set the splash duration, open the full configuration, enable or disable <strong>Start at Login</strong>, read the About panel, or quit Task. Start at Login is always opt-in.</p>
+    </section>
+
+    <section>
+      <h2>Install a source build</h2>
+      <p>Run <code>make install</code> from the Task source directory. It regenerates the app and menu-bar icon assets first, builds the Release app, stops the running Task process, and replaces <code>/Applications/Task.app</code>.</p>
     </section>
 
     <section>
@@ -202,10 +244,10 @@
       <p>Confirm that both Mission Control settings listed above are off, then check that the number in <code>spaces.txt</code> matches the Space’s position in Mission Control.</p>
 
       <h3>No name appears after editing</h3>
-      <p>Save the configuration file as plain text. Keep one mapping per line in the form <code>number = description</code>, then switch Spaces or left-click the menu-bar icon.</p>
+      <p>Edits in the menu field save immediately. If you edit the full configuration instead, save it as plain text and keep one mapping per line in the form <code>number = description</code>. Then switch Spaces or left-click the menu-bar icon.</p>
 
       <h3>Task is not visible</h3>
-      <p>Look for its tag-shaped icon in the macOS menu bar. If the menu bar is crowded, macOS or a menu-bar manager may have hidden it.</p>
+      <p>Look for its numbered tag-shaped icon in the macOS menu bar. If the menu bar is crowded, macOS or a menu-bar manager may have hidden it.</p>
     </section>
 
     <section>

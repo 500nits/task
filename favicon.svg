@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="64"
+     height="64"
+     viewBox="280 280 464 464"
+     fill="none">
+  <!--
+    A menu-bar-specific rendering of the Task mark.
+
+    Keep this artwork monochrome: macOS uses its alpha channel as a template
+    mask and supplies the correct foreground color for the current menu-bar
+    appearance.
+  -->
+  <path d="M512 330
+           C548 330 565 374 598 382
+           C632 390 674 365 695 394
+           C716 423 681 456 688 489
+           C695 522 735 545 724 579
+           C713 614 668 610 644 636
+           C620 662 623 708 588 720
+           C553 732 529 693 496 687
+           C462 681 427 713 398 692
+           C369 671 389 627 374 596
+           C359 565 314 551 316 515
+           C318 479 364 469 382 440
+           C400 411 384 366 416 349
+           C447 332 478 361 512 330Z"
+        stroke="#000000"
+        stroke-width="28"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+</svg>
