@@ -179,11 +179,19 @@
 
     footer {
       display: flex;
-      gap: 18px;
+      flex-wrap: wrap;
+      gap: 8px 18px;
       margin-top: 44px;
       padding-top: 20px;
       border-top: 1px solid var(--line);
       font-size: 14px;
+    }
+
+    .legal {
+      flex-basis: 100%;
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.5;
     }
 
     a {
@@ -259,11 +267,12 @@
 2 = Email and messages
 3 = Research and reference
 4 = Planning and admin</div>
-    <p class="note">Space names and splash duration live in this local file. Task follows your Mac's light or dark appearance.</p>
+    <p class="note">Space names and splash duration live in this local file. Task follows the system’s light or dark appearance.</p>
     <footer>
       <a href="https://500nits.com/">500nits</a>
       <a href="/support/">Support</a>
       <a href="/privacy/">Privacy</a>
+      <p class="legal">Mac, macOS, Mission Control, and Spaces are trademarks of Apple Inc., registered in the U.S. and other countries and regions. Task is not affiliated with, endorsed by, or sponsored by Apple Inc.</p>
     </footer>
   </main>
 </body>
