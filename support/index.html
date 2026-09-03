@@ -177,7 +177,7 @@
     </a>
 
     <h1>Support</h1>
-    <p class="intro"><strong>Version 1.0.6.</strong> Task is a small macOS menu-bar app that lets you attach a meaningful description to each numbered Space, so you can see what every desktop is for at the moments when context matters.</p>
+    <p class="intro"><strong>Version 1.1.0.</strong> Task is a small macOS menu-bar app that gives each numbered Mission Control Desktop a name, keeps that name visible in the Mission Control overview, and shows the Desktop you are on in the menu bar.</p>
 
     <section>
       <h2>Getting started</h2>
@@ -187,50 +187,83 @@
         <li><strong>Automatically rearrange Spaces based on most recent use</strong></li>
       </ul>
       <p>Task stays in the menu bar. It does not appear in the Dock.</p>
-      <p>The tag-shaped menu-bar icon contains the current numbered Desktop. Fullscreen and Split View Spaces leave the tag unnumbered because macOS does not assign them a Desktop number.</p>
+      <p>The tag-shaped menu-bar icon contains the current numbered Desktop. Fullscreen and Split View Spaces leave the tag unnumbered, and carry no badge, because macOS does not assign them a Desktop number.</p>
       <figure class="setup-figure">
         <img src="/screenshots/task_best_mission_control_configuration.png" width="1344" height="942" loading="lazy" alt="macOS Mission Control keyboard shortcuts configured for moving left and right and switching directly to Desktops 1 through 9">
-        <figcaption>A good keyboard configuration for Task: keep the shortcuts for moving left and right, and assign Control–1 through Control–9 to numbered Desktops. You can switch directly or browse sequentially while Task shows the name of the Space where you land.</figcaption>
+        <figcaption>A good keyboard configuration for Task: keep the shortcuts for moving left and right, and assign Control–1 through Control–9 to numbered Desktops. You can switch directly or browse sequentially while Task shows the name of the Desktop where you land.</figcaption>
       </figure>
     </section>
 
     <section>
-      <h2>Name your Spaces</h2>
-      <p>Right-click the Task menu-bar icon. The text field at the top of the menu contains the current Desktop name. Edit it there and Task updates that Desktop’s entry immediately.</p>
-      <p>For bulk edits, choose <strong>Configuration…</strong>. Task opens the local plain-text file in your default text editor. Add one numbered description per line:</p>
-      <pre>splash_duration = 1.5
+      <h2>Name your Desktops</h2>
+      <p>Click the Task menu-bar icon. The text field at the top of the menu holds the current Desktop’s name, already selected, so you can type straight over it. The name is saved when you press Return, click elsewhere, or close the menu.</p>
+      <p>For bulk edits, choose <strong>Configuration…</strong>. Task opens the local plain-text file in your default text editor. Add one numbered name per line:</p>
+      <pre># Task configuration
+# This file is managed by Task. Manual edits are supported, but Task
+# normalizes formatting and discards custom comments and unknown keys when saving.
 
-1 = Focus work
-2 = Email and messages
-3 = Research and reference
-4 = Planning and admin</pre>
+# Active-badge visibility after Desktop changes (0.0 disables it; max 5.0)
+splashDuration = 1.5
+
+# Give each named Desktop a stable colour
+differentiateWithColor = true
+
+# Desktop names
+1 = Website refresh
+2 = PROJ-4127
+3 = Customer research
+4 = Invoices
+
+# Per-Desktop badge colours
+1.color = #E8756A
+2.color = #2F80ED</pre>
       <p>The file is stored locally at:</p>
       <p><code>~/Library/Containers/com.500nits.Task/Data/Library/Application Support/Task/spaces.txt</code></p>
-      <p>Task does not overwrite the file when it launches, changes Spaces, or shows a splash. It writes only when you edit the Desktop name, release the splash-duration slider, or complete a verified numbered-Desktop reorder in Mission Control.</p>
-      <p><code>spaces.txt</code> is an app-owned canonical file. When Task writes it, duplicate entries collapse to their last value and custom comments, unknown keys, and custom formatting are removed.</p>
-      <p>If you drag numbered Desktops into a new order in Mission Control, Task uses their stable identities to move each name to its new Desktop number automatically.</p>
+      <p>Task does not overwrite the file when it launches or when you switch Desktops. It writes when you rename a Desktop, release the splash-duration slider, toggle <strong>Differentiate with Color</strong>, refresh the workspaces, or complete a verified numbered-Desktop reorder in Mission Control.</p>
+      <p><code>spaces.txt</code> is an app-owned canonical file. When Task writes it, duplicate entries collapse to their last value, custom comments, unknown keys and custom formatting are removed, and entries beyond the live Desktop count are dropped. Every live Desktop always ends up with a concrete name; a missing or cleared entry is written back as <code>Task N</code>.</p>
+      <p>If you drag numbered Desktops into a new order in Mission Control, Task uses their stable identities to move each name — and its colour — to its new Desktop number automatically.</p>
+    </section>
+
+    <section>
+      <h2>Names in Mission Control</h2>
+      <p>Each named Desktop carries one large badge across the middle of its thumbnail. The badge uses the full available screen width at a fixed size; a name too long for one line splits over two, and a name that still does not fit displays <code>overflown</code>.</p>
+      <p>Badges appear when you open Mission Control, and briefly after you move to another Desktop. The rest of the time they stay invisible and your screen is unobstructed, including in Application Windows.</p>
+    </section>
+
+    <section>
+      <h2>Differentiate with Color</h2>
+      <p>Click the Task menu-bar icon and choose <strong>Differentiate with Color</strong>. Each named Desktop is given its own colour, distributed across the full spectrum and randomly rotated, so neighbouring Desktops stay easy to tell apart.</p>
+      <p>Colours are written into <code>spaces.txt</code> as <code>N.color</code> entries and survive ordinary relaunches. Switching the option off and back on generates a fresh set. To choose your own, edit the file and give a three- or six-digit HTML hex colour; Task stores the canonical six-digit <code>#RRGGBB</code> form.</p>
     </section>
 
     <section>
       <h2>Set the splash duration</h2>
-      <p>Right-click the Task icon and use the <strong>Splash duration</strong> slider. Choose any value from 0.1 to 5.0 seconds; the default is 1.5 seconds.</p>
-      <p>The value is saved immediately when you release the slider as <code>splash_duration</code> in <code>spaces.txt</code>. If that setting is missing or invalid, Task uses the 1.5-second default without rewriting the file.</p>
+      <p>Click the Task icon and use the <strong>Splash duration</strong> slider. It controls how long a Desktop’s badge stays visible after you move to that Desktop. Choose any value from 0.0 to 5.0 seconds; the default is 1.5 seconds, and 0.0 turns the switching badge off while leaving the Mission Control badge in place.</p>
+      <p>The value is saved when you release the slider, as <code>splashDuration</code> in <code>spaces.txt</code>. If that setting is missing or invalid, Task uses the 1.5-second default without rewriting the file.</p>
     </section>
 
     <section>
       <h2>When Task appears</h2>
-      <p>Your current Space name appears briefly when you:</p>
+      <p>A Desktop’s name is shown:</p>
       <ul>
-        <li>move to another Space;</li>
-        <li>open Mission Control;</li>
-        <li>left-click the Task menu-bar icon.</li>
+        <li>across its thumbnail whenever Mission Control is open;</li>
+        <li>on screen for the splash duration when you move to that Desktop.</li>
       </ul>
-      <p>If you use more than one display, Task shows the name on every connected display. A fullscreen Space shows its visible app name, such as <strong>Safari</strong>. Split View shows both apps from left to right, such as <strong>Safari · Notes</strong>.</p>
+      <p>If you use more than one display, Task shows the name on every connected display.</p>
     </section>
 
     <section>
       <h2>Menu-bar controls</h2>
-      <p>The small number inside Task’s tag shows the current numbered Desktop. Right-click the icon to rename that Desktop, set the splash duration, open the full configuration, enable or disable <strong>Start at Login</strong>, read the About panel, or quit Task. Start at Login is always opt-in.</p>
+      <p>The small number inside Task’s tag shows the current numbered Desktop. Click the icon for:</p>
+      <ul>
+        <li>the editable name of the current Desktop;</li>
+        <li><strong>Differentiate with Color</strong>;</li>
+        <li>the <strong>Splash duration</strong> slider;</li>
+        <li><strong>Refresh Workspaces</strong>, which rereads <code>spaces.txt</code>, reconciles the badges against the Desktops that are actually there, and shows the current Desktop’s badge so you can see it worked;</li>
+        <li><strong>Configuration…</strong>, which opens <code>spaces.txt</code> in your default text editor;</li>
+        <li><strong>Start at Login</strong>, always opt-in — Task never enables it for you;</li>
+        <li><strong>About Task</strong> and <strong>Quit Task</strong>.</li>
+      </ul>
     </section>
 
     <section>
@@ -241,10 +274,13 @@
     <section>
       <h2>Troubleshooting</h2>
       <h3>The wrong name appears</h3>
-      <p>Confirm that both Mission Control settings listed above are off, then check that the number in <code>spaces.txt</code> matches the Space’s position in Mission Control.</p>
+      <p>Confirm that both Mission Control settings listed above are off, then check that the number in <code>spaces.txt</code> matches the Desktop’s position in Mission Control. <strong>Refresh Workspaces</strong> reconciles the two.</p>
 
       <h3>No name appears after editing</h3>
-      <p>Edits in the menu field save immediately. If you edit the full configuration instead, save it as plain text and keep one mapping per line in the form <code>number = description</code>. Then switch Spaces or left-click the menu-bar icon.</p>
+      <p>Edits in the menu field save when you press Return, click elsewhere, or close the menu. If you edit the full configuration instead, save it as plain text and keep one mapping per line in the form <code>number = name</code>. Then switch Desktops or choose <strong>Refresh Workspaces</strong>.</p>
+
+      <h3>No badge appears in Mission Control</h3>
+      <p>Only named numbered Desktops get a badge. Fullscreen and Split View Spaces never do. If a numbered Desktop is missing its badge, choose <strong>Refresh Workspaces</strong>.</p>
 
       <h3>Task is not visible</h3>
       <p>Look for its numbered tag-shaped icon in the macOS menu bar. If the menu bar is crowded, macOS or a menu-bar manager may have hidden it.</p>
