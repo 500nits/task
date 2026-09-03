@@ -69,20 +69,23 @@
 
     .menu-bar-preview {
       position: absolute;
-      top: 24px;
+      top: 0;
       right: 0;
-      width: min(408px, 46%);
+      width: min(480px, 50%);
+      aspect-ratio: 10 / 1;
       overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 10px;
+      border-radius: 12px;
+      background: #eee;
       box-shadow: 0 14px 34px rgba(40, 32, 22, .12);
-      line-height: 0;
     }
 
     .menu-bar-preview img {
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 38.5%;
     }
 
     .eyebrow {
@@ -247,7 +250,6 @@
     @media (max-width: 680px) {
       .menu-bar-preview {
         position: relative;
-        top: 0;
         width: 100%;
         margin-top: 24px;
       }
@@ -284,7 +286,7 @@
       <a class="app-name" href="https://apps.apple.com/app/id6793942588">Task for Spaces</a>
     </header>
     <div class="menu-bar-preview">
-      <img src="/screenshots/menu-bar-tag.png" width="612" height="54" alt="The macOS menu bar with Task's tag showing Desktop 2">
+      <img src="/screenshots/task-menu-bar.png" width="2172" height="724" alt="macOS menu bar showing Task on Desktop 9">
     </div>
     <p class="eyebrow">Version 1.1.0 · A tiny macOS menu-bar app</p>
     <h1>Know which Desktop is which.</h1>
