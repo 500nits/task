@@ -360,7 +360,7 @@
     <p class="intro">Give each macOS Space a name. Task shows it across that Space's thumbnail in Mission Control, so you can see what each one holds.</p>
     <a class="cta" href="https://apps.apple.com/app/id6793942588">Download on the Mac App Store</a>
     <div class="screenshots">
-      <img src="/screenshots/mission-control.jpg" width="1920" height="1200" alt="Mission Control with five Spaces, each thumbnail labelled with its name, and the current Space showing a large Customer research badge">
+      <img src="/screenshots/mission-control.jpg" width="1920" height="1200" alt="Mission Control with five Spaces, each thumbnail labelled with its name, and the current Space showing a large Customer research splash">
       <img src="/screenshots/mission-control_2.jpg" width="1920" height="1200" loading="lazy" alt="Mission Control with five Spaces whose longer names wrap onto two lines inside their thumbnails">
       <img src="/screenshots/name-the-space.jpg" width="1920" height="1200" loading="lazy" alt="Task's menu open from the menu bar with the current Space name PROJ-4127 in an editable field">
       <img src="/screenshots/differentiate-with-color.jpg" width="1920" height="1200" loading="lazy" alt="Mission Control with five named Spaces, each label drawn in a different color">
@@ -375,7 +375,7 @@
     <section class="features" aria-label="Task features">
       <article class="feature">
         <h2>Names in Mission Control</h2>
-        <p>Every named Space carries a large badge across the middle of its thumbnail, split over two lines when the name is long.</p>
+        <p>Every named Space carries its name across the middle of its thumbnail in Mission Control’s Spaces bar, split over two lines when the name is long.</p>
       </article>
       <article class="feature">
         <h2>Differentiate with Color</h2>
@@ -410,7 +410,8 @@
 # This file is managed by Task. Manual edits are supported, but Task
 # normalizes formatting and discards custom comments and unknown keys when saving.
 
-# Active-badge visibility after Desktop changes (0.0 disables it; max 5.0)</span>
+# How long the splash stays after a Space change, in seconds.
+# 0.0 turns it off, 5.0 is the longest.</span>
 splashDuration = 1.5
 
 <span class="comment"># Give each named Desktop a stable colour</span>
@@ -426,7 +427,7 @@ iconAsSpaceNames = false
 3 = Customer research
 4 = Invoices
 
-<span class="comment"># Per-Desktop badge colours</span>
+<span class="comment"># Per-Desktop colours</span>
 1.color = #E8756A
 2.color = #2F80ED</div>
     <p class="note">Space names, their colors and the splash duration live in this one local file. Open it from Task’s menu and edit it by hand, or let Task write it as you rename Spaces. Task follows the system’s light or dark appearance.</p>

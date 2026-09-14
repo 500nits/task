@@ -199,7 +199,7 @@
         <li><strong>Automatically rearrange Spaces based on most recent use</strong></li>
       </ul>
       <p>Task stays in the menu bar. It does not appear in the Dock.</p>
-      <p>The tag-shaped menu-bar icon contains the current numbered Desktop. Fullscreen and Split View Spaces leave the tag unnumbered, and carry no badge, because macOS does not assign them a Desktop number.</p>
+      <p>The tag-shaped menu-bar icon contains the current numbered Desktop. Fullscreen and Split View Spaces leave the tag unnumbered, and carry no name, because macOS does not assign them a Desktop number.</p>
       <figure class="setup-figure">
         <img src="/screenshots/task_best_mission_control_configuration.png" width="1344" height="942" loading="lazy" alt="macOS Mission Control keyboard shortcuts configured for moving left and right and switching directly to Desktops 1 through 9">
         <figcaption>A good keyboard configuration for Task: keep the shortcuts for moving left and right, and assign Control–1 through Control–9 to numbered Desktops. You can switch directly or browse sequentially while Task shows the name of the Space where you land.</figcaption>
@@ -214,8 +214,28 @@
 # This file is managed by Task. Manual edits are supported, but Task
 # normalizes formatting and discards custom comments and unknown keys when saving.
 
-# Active-badge visibility after Desktop changes (0.0 disables it; max 5.0)
+# The splash is the large card Task draws in the middle of the
+# screen: for a moment when you move to a Space, and while Mission
+# Control is open. The name Mission Control shows in its Spaces bar
+# is a separate thing, and none of the four settings below touch it.
+
+# How long the splash stays after a Space change, in seconds.
+# 0.0 turns it off, 5.0 is the longest.
 splashDuration = 1.5
+
+# Draw the splash over the Desktop while Mission Control is open.
+# The Spaces bar keeps its names either way.
+splashInMissionControl = true
+
+# How large the splash is drawn.
+# One of: huge, big, normal, small, mini. huge is the default.
+splashSize = huge
+
+# Where on the screen the splash sits, as a 3x3 grid read like a page:
+#   1 2 3   top left, top centre, top right
+#   4 5 6
+#   7 8 9   bottom left, bottom centre, bottom right
+splashPosition = 5
 
 # Give each named Desktop a stable colour
 differentiateWithColor = true
@@ -230,8 +250,12 @@ iconAsSpaceNames = false
 3 = Customer research
 4 = Invoices
 
-# Per-Desktop badge colours
+# Per-Desktop colours, and what the menu-bar icon shows
+# for that Desktop when "Icon as Space Names" is on. Without a
+# tag the icon shows the first word of the name, which collides
+# when two Desktops start with the same word.
 1.color = #E8756A
+1.tag = SITE
 2.color = #2F80ED</pre>
       <p>The file is stored locally at:</p>
       <p><code>~/Library/Containers/com.500nits.Task/Data/Library/Application Support/Task/spaces.txt</code></p>
@@ -242,8 +266,8 @@ iconAsSpaceNames = false
 
     <section>
       <h2>Names in Mission Control</h2>
-      <p>Each named Space carries one large badge across the middle of its thumbnail. The badge uses the full available screen width at a fixed size; a name too long for one line splits over two, and a name that still does not fit displays <code>overflown</code>.</p>
-      <p>Badges appear when you open Mission Control, and briefly after you move to another Space. The rest of the time they stay invisible and your screen is unobstructed, including in Application Windows.</p>
+      <p>Each named Space carries its name across the middle of its thumbnail in Mission Control's Spaces bar. The name uses the full available screen width at a fixed size; a name too long for one line splits over two, and a name that still does not fit displays <code>overflown</code>.</p>
+      <p>The splash appears when you open Mission Control, and briefly after you move to another Space. The rest of the time it stays invisible and your screen is unobstructed, including in Application Windows.</p>
     </section>
 
     <section>
@@ -253,15 +277,61 @@ iconAsSpaceNames = false
     </section>
 
     <section>
+      <h2>Splash size and position</h2>
+      <p>The splash is the large card Task draws in the middle of the screen: for
+      a moment when you move to a Space, and while Mission Control is open. Three
+      settings in <code>spaces.txt</code> shape it. They have no menu item because
+      they are set once and then left alone: edit the file from
+      <strong>Configuration…</strong> and open Mission Control to see the
+      change.</p>
+      <p>None of them touch the name in Mission Control's Spaces bar. That name
+      stays full size and centred whatever they say, because the thumbnail it sits
+      on is only a couple of hundred pixels wide and reading the name in it is the
+      whole point.</p>
+      <h3>splashInMissionControl</h3>
+      <p><code>true</code> or <code>false</code>. Draws or hides the splash over
+      the Desktop while Mission Control is open. The Spaces bar keeps its names
+      either way.</p>
+      <h3>splashSize</h3>
+      <p>One of <code>huge</code>, <code>big</code>, <code>normal</code>,
+      <code>small</code> or <code>mini</code>. The size applies to the whole
+      splash at once, so it keeps its shape and only its scale changes, and it
+      applies to the splash shown on a Space change as well as the one in Mission
+      Control. <code>huge</code> is the default. This is the one splash setting
+      that is also in the menu, on a <strong>Splash size</strong> slider beside
+      the duration one. It has five stops, smallest on the left, and the label
+      above it names the one you are on. Edit the file by hand instead and the
+      slider shows that the next time you open the menu.</p>
+      <h3>splashPosition</h3>
+      <p>A number from 1 to 9, placing the splash on a three-by-three grid read
+      like a page:</p>
+      <pre>1 2 3   top left, top centre, top right
+4 5 6   left, centre, right
+7 8 9   bottom left, bottom centre, bottom right</pre>
+      <p><code>5</code>, the centre, is the default. The outer rows are held off
+      the edges: the top row clears Mission Control's Spaces bar and the bottom
+      row clears the Dock, so a splash in a corner stays readable with either of
+      them on screen. A name Task does not recognise, or a number outside 1 to 9,
+      is ignored and the default is kept, so a typo never leaves the splash
+      somewhere unexpected.</p>
+    </section>
+
+    <section>
       <h2>Icon as Space Names</h2>
       <p>Click the Task menu-bar icon and choose <strong>Icon as Space Names</strong>. The tag then carries the first word of the current Space’s name in place of its Desktop number.</p>
       <p>The tag keeps one width whatever the name is, so the rest of the menu bar stays where it is as you move between Spaces. A word too long for that width is cut, with an ellipsis to show where. Fullscreen and Split View Spaces have neither a name nor a Desktop number, so the tag stays blank on those either way.</p>
+      <p>The first word is a default, and it collides: <em>Client Alpha</em> and <em>Client Beta</em> both read <code>Client</code>. Give a Space its own tag by adding <code>N.tag</code> to <code>spaces.txt</code>, next to its colour:</p>
+      <pre>1 = Client Alpha
+2 = Client Beta
+1.tag = ALPHA
+2.tag = BETA</pre>
+      <p>A tag is used exactly as written, spaces included, and is fitted to the tag the same way a name is. Remove the line, or leave it empty, and that Space goes back to its first word. A tag follows its Space when Spaces are reordered, and goes when the Space does.</p>
       <p>The setting is written to <code>spaces.txt</code> as <code>iconAsSpaceNames</code>.</p>
     </section>
 
     <section>
       <h2>Set the splash duration</h2>
-      <p>Click the Task icon and use the <strong>Splash duration</strong> slider. It controls how long a Space’s badge stays visible after you move to it. Choose any value from 0.0 to 5.0 seconds; the default is 1.5 seconds, and 0.0 turns the switching badge off while leaving the Mission Control badge in place.</p>
+      <p>Click the Task icon and use the <strong>Splash duration</strong> slider. It controls how long the splash stays visible after you move to a Space. Choose any value from 0.0 to 5.0 seconds; the default is 1.5 seconds, and 0.0 turns off the splash on a Space change while leaving the one in Mission Control in place.</p>
       <p>The value is saved when you release the slider, as <code>splashDuration</code> in <code>spaces.txt</code>. If that setting is missing or invalid, Task uses the 1.5-second default without rewriting the file.</p>
     </section>
 
@@ -283,7 +353,7 @@ iconAsSpaceNames = false
         <li><strong>Differentiate with Color</strong>;</li>
         <li><strong>Icon as Space Names</strong>;</li>
         <li>the <strong>Splash duration</strong> slider;</li>
-        <li><strong>Refresh Workspaces</strong>, which rereads <code>spaces.txt</code>, reconciles the badges against the Spaces that are actually there, and shows the current Desktop’s badge so you can see it worked;</li>
+        <li><strong>Refresh Workspaces</strong>, which rereads <code>spaces.txt</code>, reconciles the names against the Spaces that are actually there, and shows the current Desktop’s splash so you can see it worked;</li>
         <li><strong>Configuration…</strong>, which opens <code>spaces.txt</code> in your default text editor;</li>
         <li><strong>Start at Login</strong>, always opt-in — Task never enables it for you;</li>
         <li><strong>About Task</strong> and <strong>Quit Task</strong>.</li>
@@ -298,8 +368,8 @@ iconAsSpaceNames = false
       <h3>No name appears after editing</h3>
       <p>Edits in the menu field save when you press Return, click elsewhere, or close the menu. If you edit the full configuration instead, save it as plain text and keep one mapping per line in the form <code>number = name</code>. Then switch Spaces or choose <strong>Refresh Workspaces</strong>.</p>
 
-      <h3>No badge appears in Mission Control</h3>
-      <p>Only a named Space with a Desktop number gets a badge. Fullscreen and Split View Spaces never do. If a numbered Space is missing its badge, choose <strong>Refresh Workspaces</strong>.</p>
+      <h3>No name appears in Mission Control</h3>
+      <p>Only a named Space with a Desktop number is named in the Spaces bar. Fullscreen and Split View Spaces never are. If a numbered Space is missing its name, choose <strong>Refresh Workspaces</strong>.</p>
 
       <h3>Task is not visible</h3>
       <p>Look for its numbered tag-shaped icon in the macOS menu bar. If the menu bar is crowded, macOS or a menu-bar manager may have hidden it.</p>
