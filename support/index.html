@@ -320,11 +320,11 @@ iconAsSpaceNames = false
       <h2>Icon as Space Names</h2>
       <p>Click the Task menu-bar icon and choose <strong>Icon as Space Names</strong>. The tag then carries the first word of the current Space’s name in place of its Desktop number.</p>
       <p>The tag keeps one width whatever the name is, so the rest of the menu bar stays where it is as you move between Spaces. A word too long for that width is cut, with an ellipsis to show where. Fullscreen and Split View Spaces have neither a name nor a Desktop number, so the tag stays blank on those either way.</p>
-      <p>The first word is a default, and it collides: <em>Client Alpha</em> and <em>Client Beta</em> both read <code>Client</code>. Give a Space its own tag by adding <code>N.tag</code> to <code>spaces.txt</code>, next to its colour:</p>
-      <pre>1 = Client Alpha
-2 = Client Beta
-1.tag = ALPHA
-2.tag = BETA</pre>
+      <p>The first word is a default, and it collides: <em>ACME Rockets</em> and <em>ACME Anvils</em> both read <code>ACME</code>. Give a Space its own tag by adding <code>N.tag</code> to <code>spaces.txt</code>, next to its colour:</p>
+      <pre>1 = ACME Rockets
+2 = ACME Anvils
+1.tag = ROCKETS
+2.tag = ANVILS</pre>
       <p>A tag is used exactly as written, spaces included, and is fitted to the tag the same way a name is. Remove the line, or leave it empty, and that Space goes back to its first word. A tag follows its Space when Spaces are reordered, and goes when the Space does.</p>
       <p>The setting is written to <code>spaces.txt</code> as <code>iconAsSpaceNames</code>.</p>
     </section>
